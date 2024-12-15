@@ -18,7 +18,8 @@ public interface BookService {
     //Delete
     BookDTO deleteBook(Long bookId);
 
+    List<BookDTO> getAllBooks();
 
     //search
-  //  List<BookDTO> searchBooks(String title, String author);
+    List<BookDTO> searchBooks(String title, String author);
 }

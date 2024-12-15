@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management - Book Service</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+  <style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    h2, h3 {
+        color: #343a40;
+        font-weight: bold;
+    }
+
+    h3 {
+        margin-top: 20px;
+    }
+
+    .form-label {
+        font-weight: 500;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .btn-primary, .btn-info, .btn-success, .btn-warning, .btn-danger {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+    .hr-divider {
+        margin: 40px 0;
+        border-top: 2px solid #ddd;
+    }
+
+    #bookInfo, #allBooksTable {
+        margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-4">
+  <h2 class="text-center">LIBRARY MANAGEMENT - Book Service</h2>
+
+  <!-- Add Book Form -->
+  <h3>Add a Book</h3>
+  <form id="addBookForm">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title:</label>
+      <input type="text" id="title" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="author" class="form-label">Author:</label>
+      <input type="text" id="author" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="isbn" class="form-label">ISBN:</label>
+      <input type="text" id="isbn" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="genre" class="form-label">Genre:</label>
+      <input type="text" id="genre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="publisher" class="form-label">Publisher:</label>
+      <input type="text" id="publisher" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="publicationDate" class="form-label">Publication Date:</label>
+      <input type="date" id="publicationDate" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="summary" class="form-label">Summary:</label>
+      <textarea id="summary" class="form-control" required></textarea>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="addBook()">Add Book</button>
+  </form>
+
+  <div class="hr-divider"></div>
+
+  <!-- Get Book by ID Form -->
+  <h3>Get Book by ID</h3>
+  <form id="getBookForm">
+    <div class="mb-3">
+      <label for="bookId" class="form-label">Book ID:</label>
+      <input type="number" id="bookId" class="form-control" required>
+    </div>
+    <button type="button" class="btn btn-info" onclick="getBookById()">Get Book</button>
+  </form>
+  <pre id="bookInfo"></pre>
+
+  <div class="hr-divider"></div>
+
+  <!-- Get All Books Form -->
+  <h3>Get All Books</h3>
+  <button type="button" class="btn btn-success" onclick="getAllBooks()">Get All Books</button>
+  <div id="allBooksTable"></div>
+
+  <div class="hr-divider"></div>
+
+  <!-- Update Book Form -->
+  <h3>Update a Book</h3>
+  <form id="updateBookForm">
+    <div class="mb-3">
+      <label for="updateBookId" class="form-label">Book ID:</label>
+      <input type="number" id="updateBookId" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="updateTitle" class="form-label">Title:</label>
+      <input type="text" id="updateTitle" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="updateAuthor" class="form-label">Author:</label>
+      <input type="text" id="updateAuthor" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="updateIsbn" class="form-label">ISBN:</label>
+      <input type="text" id="updateIsbn" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="updateGenre" class="form-label">Genre:</label>
+      <input type="text" id="updateGenre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="updatePublisher" class="form-label">Publisher:</label>
+      <input type="text" id="updatePublisher" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="updatePublicationDate" class="form-label">Publication Date:</label>
+      <input type="date" id="updatePublicationDate" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="updateSummary" class="form-label">Summary:</label>
+      <textarea id="updateSummary" class="form-control" required></textarea>
+    </div>
+    <button type="button" class="btn btn-warning" onclick="updateBook()">Update Book</button>
+  </form>
+
+  <div class="hr-divider"></div>
+
+  <!-- Delete Book Form -->
+  <h3>Delete a Book</h3>
+  <form id="deleteBookForm">
+    <div class="mb-3">
+      <label for="deleteBookId" class="form-label">Book ID:</label>
+      <input type="number" id="deleteBookId" class="form-control" required>
+    </div>
+    <button type="button" class="btn btn-danger" onclick="deleteBook()">Delete Book</button>
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

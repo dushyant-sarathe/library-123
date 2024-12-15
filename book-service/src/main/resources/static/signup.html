@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Register</h4>
+                </div>
+                <div class="card-body">
+                    <form id="registrationForm" action="/api/auth/signup" method="POST">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select class="form-control" id="gender" name="gender" required>
+                                <option value="MALE">MALE</option>
+                                <option value="FEMALE">FEMALE</option>
+                                <option value="OTHER">OTHER</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="complexNo">Complex No</label>
+                            <input type="text" class="form-control" id="complexNo" name="address.complexNo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="complexName">Complex Name</label>
+                            <input type="text" class="form-control" id="complexName" name="address.complexName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="streetNo">Street No</label>
+                            <input type="text" class="form-control" id="streetNo" name="address.streetNo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="streetName">Street Name</label>
+                            <input type="text" class="form-control" id="streetName" name="address.streetName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="suburb">Suburb</label>
+                            <input type="text" class="form-control" id="suburb" name="address.suburb" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="province">Province</label>
+                            <input type="text" class="form-control" id="province" name="address.province" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" class="form-control" id="country" name="address.country" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" class="form-control" id="postalCode" name="address.postalCode" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="poBox">PO Box</label>
+                            <input type="text" class="form-control" id="poBox" name="address.poBox" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="poSuburb">PO Suburb</label>
+                            <input type="text" class="form-control" id="poSuburb" name="address.poSuburb" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <input type="text" class="form-control" id="role" name="role" value="ROLE_CLIENT" required readonly>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validate/2.1.3/bootstrap-validate.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#registrationForm').validate({
+            rules: {
+                firstName: {
+                    required: true,
+                    minlength: 2
+                },
+                lastName: {
+                    required: true,
+                    minlength: 2
+                },
+                username: {
+                    required: true,
+                    minlength: 5
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                phone: {
+                    required: true,
+                    digits: true
+                },
+                gender: {
+                    required: true
+                },
+                address: {
+                    required: true
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                },
+                role: {
+                    required: true
+                }
+            },
+            messages: {
+                firstName: "Please enter your first name",
+                lastName: "Please enter your last name",
+                username: "Please enter a username",
+                email: "Please enter a valid email address",
+                phone: "Please enter a valid phone number",
+                gender: "Please select your gender",
+                address: "Please enter your address",
+                password: "Please provide a password",
+                role: "Role is required"
+            },
+            submitHandler: function(form) {
+                // Perform AJAX request to the server
+                const data = {
+                    firstName: $("#firstName").val(),
+                    lastName: $("#lastName").val(),
+                    username: $("#username").val(),
+                    phone: $("#phone").val(),
+                    email: $("#email").val(),
+                    gender: $("#gender").val(),
+                    address: {
+                        complexNo: $("#complexNo").val(),
+                        complexName: $("#complexName").val(),
+                        streetNo: $("#streetNo").val(),
+                        streetName: $("#streetName").val(),
+                        suburb: $("#suburb").val(),
+                        province: $("#province").val(),
+                        country: $("#country").val(),
+                        postalCode: $("#postalCode").val(),
+                        poBox: $("#poBox").val(),
+                        poSuburb: $("#poSuburb").val()
+                    },
+                    password: $("#password").val(),
+                    role: "ROLE_CLIENT"
+                };
+
+                $.ajax({
+                    url: '/api/auth/signup',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function(response) {
+                        alert('Registration successful!');
+                        // Redirect or handle response
+                    },
+                    error: function(error) {
+                        alert('Registration failed. Please try again.');
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
